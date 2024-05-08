@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^6.4.0",
+        "@inertiajs/vue3": "^1.0.0",
+        "@tailwindcss/forms": "^0.5.2",
+        "@tailwindcss/typography": "^0.5.2",
+        "@vitejs/plugin-vue": "^4.0.0",
+        "autoprefixer": "^10.4.7",
+        "axios": "^1.1.2",
+        "chart.js": "^4.3.3",
+        "laravel-vite-plugin": "^0.8.0",
+        "lodash": "^4.17.21",
+        "postcss": "^8.4.14",
+        "primevue": "^3.52.0",
+        "sass": "^1.62.1",
+        "tailwindcss": "^3.3.3",
+        "vite": "^4.4.9",
+        "vue": "^3.3.4",
+        "vue-chartjs": "^5.2.0",
+        "vue-ssr-carousel": "^2.3.2",
+        "vue3-carousel": "^0.3.1"
+    }
+}

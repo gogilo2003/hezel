@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .price {
+        @apply bg-secondary-default;
+    }
+
+    .illustration-image {
+        @apply p-4 relative before:border-t before:border-l before:border-secondary-400 before:absolute before:top-0 before:left-0 before:h-[75%] before:w-[75%] after:border-b after:border-r after:border-secondary-400 after:absolute after:bottom-0 after:right-0 after:h-[75%] after:w-[75%];
+    }
+}
