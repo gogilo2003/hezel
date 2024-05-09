@@ -18,7 +18,7 @@ export interface iProperty {
     pictures: iPicture[] | null
     title: string | ""
     description: string | ""
-    price: number | ""
+    price: number | null
     longitude: number | null
     latitude: number | null
     status: string | ""
@@ -46,4 +46,9 @@ export interface iProperties {
     prev_page_url: string | null,
     to: number,
     total: number,
+}
+
+export interface iItem {
+    id: number
+    name: string
 }

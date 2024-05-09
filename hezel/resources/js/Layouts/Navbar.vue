@@ -8,6 +8,8 @@ import NavLink from '../Components/NavLink.vue';
 import ResponsiveNavLink from '../Components/ResponsiveNavLink.vue';
 import Icon from '../Components/Icons/Icon.vue';
 
+const emit = defineEmits(['toggle'])
+
 const showingNavigationDropdown = ref(false);
 
 const switchToTeam = (team) => {
@@ -21,6 +23,10 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+const toggle = () => {
+    emit('toggle')
+}
 </script>
 <template>
     <nav class="border-b bg-transparent">
@@ -30,7 +36,7 @@ const logout = () => {
                 <div class="flex">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center gap-2">
-                        <button @click="$emit('toggle')">
+                        <button @click="toggle">
                             <Icon type="menu" class="h-8 w-8 text-gray-800" />
                         </button>
                         <Link :href="route('dashboard')">

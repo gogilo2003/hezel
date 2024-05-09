@@ -29,7 +29,7 @@ onMounted(() => {
         <Banner />
 
         <div class="fixed flex flex-col h-screen top-0 left-0 bg-gray-50 dark:bg-gray-950 transition-all duration-500"
-            :class="{ 'w-72': !toggled, 'w-0': toggled }">
+            :class="{ 'w-64': !toggled, 'w-0': toggled }">
 
             <div class="flex-none p-3 border-b mb-3">
                 <img src="/logo-horizontal.png" class="w-full" />
@@ -39,7 +39,7 @@ onMounted(() => {
             </div>
 
         </div>
-        <div :class="{ 'left-72 w-[calc(100vw_-_18rem)]': !toggled, 'left-0 w-screen': toggled }"
+        <div :class="{ 'left-64 w-[calc(100vw_-_16rem)]': !toggled, 'left-0 w-screen': toggled }"
             class="absolute top-0 min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900 transition-all duration-500">
             <Navbar class="flex-none" @toggle="toggled = !toggled">
                 <!-- Page Heading -->
@@ -48,7 +48,7 @@ onMounted(() => {
                 </template>
             </Navbar>
             <!-- Page Content -->
-            <main class="flex-1 py-12 px-8">
+            <main class="flex-1 py-12 px-3 md:px-8 overflow-x-hidden">
                 <slot />
             </main>
         </div>

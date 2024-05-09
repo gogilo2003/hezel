@@ -3,3 +3,4 @@
 *.zip
 hezel/composer.lock
 hezel/package-lock.json
+public_html/hot
