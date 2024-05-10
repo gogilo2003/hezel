@@ -51,6 +51,10 @@ Route::middleware([
         Route::post('', [PropertyController::class, 'store'])->name('-store');
         Route::patch('{property}', [PropertyController::class, 'update'])->name('-update');
         Route::delete('{property}', [PropertyController::class, 'destroy'])->name('-destroy');
+        Route::patch('publish/{property}', [PropertyController::class, 'publish'])->name('-publish');
+        Route::patch('status/{property}', [PropertyController::class, 'status'])->name('-status');
+        Route::patch('feature/{property}', [PropertyController::class, 'feature'])->name('-feature');
+        Route::patch('hot/{property}', [PropertyController::class, 'hot'])->name('-hot');
     });
     Route::name('-pictures')->prefix('pictures')->controller(PictureController::class)->group(function () {
         Route::get('', 'index');

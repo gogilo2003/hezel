@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import Icon from '../Icons/Icon.vue';
 import Heading from './Heading.vue';
+import { formatCurrency } from '../../helpers';
 const props = defineProps({ property: Object })
 
 const features = computed(() => props.property.features.filter(item => item.highlighted))
@@ -16,18 +17,17 @@ const features = computed(() => props.property.features.filter(item => item.high
             <Icon class="h-4 w-4" type="home" />
             For <span v-text="property.status"></span>
         </div>
-        <p class=" text-white">{{ new Intl.NumberFormat('en-KE', {
-            style: 'currency', currency: 'KES'
-        }).format(property.price) }}</p>
+        <p class=" text-white">{{ formatCurrency(property.price) }}</p>
     </div>
     <div class="relative z-[1] overflow-hidden h-[18rem]">
-        <img class="group-hover:transform group-hover:scale-125 transition duration-300" :src="property.picture.thumb ?? ''"
-            alt="property.picture.caption">
+        <img class="group-hover:transform group-hover:scale-105 transition-[transform] duration-500 h-full w-full object-cover"
+            :src="property.picture.url ?? ''" alt="property.picture.caption">
     </div>
 
     <div class="">
         <div class="text-primary-default p-4 relative ">
-            <Heading level="h4" class="text-xl text-left mb-2 uppercase font-semibold" v-text="property.title"></Heading>
+            <Heading level="h4" class="text-xl text-left mb-2 uppercase font-semibold" v-text="property.title">
+            </Heading>
             <h4 class="flex gap-2 text-secondary-default text-sm text-center md:text-left">
                 <Icon class="h-4" type="location" /><span v-text="property.location"></span>
             </h4>

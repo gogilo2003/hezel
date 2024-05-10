@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Picture;
 use Illuminate\Http\Request;
+use App\Support\PropertyTrait;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PictureResource extends JsonResource
 {
+    use PropertyTrait;
     /**
      * Transform the resource into an array.
      *
@@ -15,11 +18,6 @@ class PictureResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
-        return [
-            "id" => $this->id,
-            "url" => $this->url,
-            "thumb" => $this->thumb,
-            "caption" => $this->caption,
-        ];
+        return $this->mapPicture(Picture::find($this->id));
     }
 }

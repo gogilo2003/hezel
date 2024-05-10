@@ -28,6 +28,9 @@ import View from './View.vue';
 import Images from './Images.vue';
 import Delete from './Delete.vue';
 import Upload from './Upload.vue';
+import More from './More.vue';
+import ArrowUp from './ArrowUp.vue';
+import ArrowDown from './ArrowDown.vue';
 
 const props = defineProps<{
     type: string
@@ -117,6 +120,15 @@ const icon = computed(() => {
     }
     if (props.type == 'upload') {
         return Upload
+    }
+    if (props.type == 'more') {
+        return More
+    }
+    if (props.type == 'arrow-up') {
+        return ArrowUp
+    }
+    if (props.type == 'arrow-down') {
+        return ArrowDown
     }
     return 'span';
 })

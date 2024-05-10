@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\PropertyTrait;
 use Inertia\Inertia;
 use App\Models\Picture;
 use App\Models\Property;
@@ -12,6 +13,7 @@ use App\Http\Requests\UpdatePropertyRequest;
 
 class PropertyController extends Controller
 {
+    use PropertyTrait;
     /**
      * Display a listing of the resource.
      */
@@ -124,22 +126,17 @@ class PropertyController extends Controller
         //
     }
 
-    protected function mapPicture(Picture $picture)
+    function publish(Property $property)
     {
-        $url = null;
-        $thumb = null;
-        if (file_exists(public_path($picture->url))) {
-            $url = asset($picture->url);
-            $thumb = asset($picture->thumb);
-        } else if (file_exists(storage_path('app/public/' . $picture->url))) {
-            $url = Storage::disk('public')->url($picture->url);
-            $thumb = Storage::disk('public')->url($picture->thumb);
-        }
-        return [
-            "id" => $picture->id,
-            "url" => $url,
-            "thumb" => $thumb,
-            "caption" => $picture->caption,
-        ];
+        $property->published = !$property->published;
+        $property->save();
+        return redirect()->back()->with('success', sprintf('Property has been %s', $property->published ? 'Published' : 'Un-Published'));
+    }
+
+    function feature(Property $property)
+    {
+        $property->featured = !$property->featured;
+        $property->save();
+        return redirect()->back()->with('success', sprintf('Property has been %s', $property->featured ? 'Featured' : 'Demoted'));
     }
 }

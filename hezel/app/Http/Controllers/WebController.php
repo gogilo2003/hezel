@@ -15,6 +15,7 @@ use App\Http\Resources\PropertyResource;
 
 class WebController extends Controller
 {
+    use PropertyTrait;
     function welcome()
     {
         $slides = SlideResource::collection(Slide::all());
@@ -47,13 +48,13 @@ class WebController extends Controller
     {
         $category = $slug ? CategoryResource::make(Category::where('slug', $slug)->first()) : null;
 
-        $categories = Category::all()->map(fn ($item) => [
+        $categories = Category::all()->map(fn($item) => [
             "id" => $item->id,
             "slug" => $item->slug,
             "name" => $item->name,
         ]);
 
-        $properties = PropertyResource::collection(Property::with('features', 'pictures')
+        $properties = PropertyResource::collection(Property::orderBy('created_at', )->with('features', 'pictures')
             ->paginate(6));
         if ($category) {
             $properties = PropertyResource::collection(
@@ -95,7 +96,7 @@ class WebController extends Controller
 
     function about()
     {
-        return Inertia::render('About',);
+        return Inertia::render('About', );
     }
 
     function contact()
