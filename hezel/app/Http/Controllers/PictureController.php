@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Picture;
+use App\Models\Property;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StorePictureRequest;
 use App\Http\Requests\UpdatePictureRequest;
-use App\Models\Picture;
+use Intervention\Image\Laravel\Facades\Image;
 
 class PictureController extends Controller
 {
@@ -29,7 +32,25 @@ class PictureController extends Controller
      */
     public function store(StorePictureRequest $request)
     {
-        //
+        $property = Property::find($request->id);
+
+
+        foreach ($request->file('files') as $file) {
+            $filePath = $file->store('images/properties', 'public');
+
+            // Generate thumbnail
+            $thumbnail = Image::read($file->getRealPath())->cover(256, 256);
+            $thumbnailPath = 'images/properties/thumbs/' . basename($filePath);
+            Storage::disk('public')->put($thumbnailPath, (string) $thumbnail->encode());
+
+            // Save file paths to database
+            $picture = new Picture();
+            $picture->url = $filePath;
+            $picture->thumb = $thumbnailPath;
+            $property->pictures()->save($picture);
+        }
+
+        return redirect()->back()->with('success', 'Pictures uploaded');
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePropertyRequest extends FormRequest
@@ -22,17 +23,10 @@ class StorePropertyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => ["required", "string"],
+            "title" => ["required", "string", Rule::unique('properties', 'title')],
             "description" => ["required", "string"],
             "price" => ["required", "numeric"],
-            "longitude" => ["nullable", "numeric"],
-            "latitude" => ["nullable", "numeric"],
-            "status" => ["nullable", "boolean"],
             "location" => ["nullable", "string"],
-            "county_id" => ["nullable", "numeric", "integer", "exists:counties,id"],
-            "sub_county_id" => ["nullable", "numeric", "integer", "exists:sub_counties,id"],
-            "ward_id" => ["nullable", "numeric", "integer", "exists:wards,id"],
-            "town_id" => ["nullable", "numeric", "integer", "exists:towns,id"],
         ];
     }
 }

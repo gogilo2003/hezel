@@ -19,17 +19,11 @@ export interface iProperty {
     title: string | ""
     description: string | ""
     price: number | null
-    longitude: number | null
-    latitude: number | null
     status: string | ""
     location: string | ""
     featured: boolean
     published: boolean
     hot: boolean
-    county: { id: number, name: string | "" } | null
-    sub_county: { id: number, name: string | "" } | null
-    ward: { id: number, name: string | "" } | null
-    town: { id: number, name: string | "" } | null
 }
 
 export interface iProperties {

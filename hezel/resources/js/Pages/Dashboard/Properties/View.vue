@@ -13,16 +13,16 @@ const close = () => {
 </script>
 <template>
     <Modal :show="show" max-width="5xl" closeable>
-        <div class="flex justify-between items-center mx-6 py-4">
-            <div class="text-lg font-light font-sans">View Property</div>
+        <div class="flex justify-between items-center mx-6 py-4 border-b">
+            <div class="text-lg font-extralight font-sans uppercase">View Property</div>
             <button @click="close">
                 <Icon class="h-5 w-5" type="close" />
             </button>
         </div>
         <div class="mx-6 py-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="hidden md:block">
-                    <img class="h-full w-full object-cover" :src="property?.picture.thumb">
+                <div class="hidden md:block" v-if="property?.picture">
+                    <img class="h-full w-full object-cover" :src="property?.picture?.thumb">
                 </div>
                 <div class="col-span-2 flex flex-col gap-3">
                     <div class="text-lg font-light uppercase" v-text="property?.title"></div>

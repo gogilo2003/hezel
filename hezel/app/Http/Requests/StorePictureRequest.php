@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePictureRequest extends FormRequest
@@ -11,7 +12,7 @@ class StorePictureRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,9 @@ class StorePictureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "id" => ["required", "numeric", "integer", Rule::exists('properties', 'id')],
+            "files" => ["required", "array", "min:1"],
+            "files.*" => ["required", "file", "image"],
         ];
     }
 }

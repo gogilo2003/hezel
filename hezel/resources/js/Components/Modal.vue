@@ -3,8 +3,8 @@ import { computed, onMounted, onUnmounted, watch } from 'vue';
 
 const props = defineProps<{
     show: boolean | false,
-    maxWidth: String | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl',
-    closeable: boolean | true,
+    maxWidth?: string | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl',
+    closeable?: boolean | true,
 }>();
 
 const emit = defineEmits(['close']);

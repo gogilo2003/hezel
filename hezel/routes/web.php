@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PictureController;
 use App\Http\Controllers\PropertyController;
 use Inertia\Inertia;
 use App\Models\Property;
@@ -50,5 +51,11 @@ Route::middleware([
         Route::post('', [PropertyController::class, 'store'])->name('-store');
         Route::patch('{property}', [PropertyController::class, 'update'])->name('-update');
         Route::delete('{property}', [PropertyController::class, 'destroy'])->name('-destroy');
+    });
+    Route::name('-pictures')->prefix('pictures')->controller(PictureController::class)->group(function () {
+        Route::get('', 'index');
+        Route::post('', 'store')->name('-store');
+        Route::patch('{picture}', 'update')->name('-update');
+        Route::delete('{picture}', 'destroy')->name('-destroy');
     });
 });

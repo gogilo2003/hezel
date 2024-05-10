@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Town;
-use App\Models\Ward;
 use Inertia\Inertia;
-use App\Models\County;
 use App\Models\Picture;
 use App\Models\Property;
-use App\Models\SubCounty;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StorePropertyRequest;
 use App\Http\Requests\UpdatePropertyRequest;
 
@@ -28,22 +25,12 @@ class PropertyController extends Controller
             $query->where('title', 'LIKE', "%$search%")
                 ->orWhere('description', 'LIKE', "%$search%")
                 ->orWhere('location', 'LIKE', "%$search%");
-        })->paginate(4)->through(function ($item) {
-            $pictures = $item->pictures()->orderBy('primary', 'DESC')->get()->map(fn(Picture $picture) => [
-                "id" => $picture->id,
-                "url" => $picture->url,
-                "thumb" => $picture->thumb,
-                "caption" => $picture->caption,
-            ]);
+        })->orderBy('created_at', 'DESC')->paginate(4)->through(function ($item) {
+            $pictures = $item->pictures()->orderBy('primary', 'DESC')->get()->map(fn(Picture $picture) => $this->mapPicture($picture));
             $pic = $item->pictures()->orderBy('primary', 'DESC')->first();
 
             $picture = $pic
-                ? [
-                    "id" => $pic->id,
-                    "url" => $pic->url,
-                    "thumb" => $pic->thumb,
-                    "caption" => $pic->caption,
-                ]
+                ? $this->mapPicture($pic)
                 : null;
             return [
                 "id" => $item->id,
@@ -52,6 +39,9 @@ class PropertyController extends Controller
                 "location" => $item->location,
                 "price" => $item->price,
                 "status" => $item->status,
+                "published" => $item->published,
+                "featured" => $item->featured,
+                "hot" => $item->hot,
                 "picture" => $picture,
                 "pictures" => $pictures,
             ];
@@ -116,21 +106,14 @@ class PropertyController extends Controller
      */
     public function update(UpdatePropertyRequest $request, Property $property)
     {
-        $property->slug = $request->slug;
+        $property->slug = Str::slug($request->title);
         $property->title = $request->title;
         $property->description = $request->description;
         $property->price = $request->price;
-        $property->longitude = $request->longitude;
-        $property->latitude = $request->latitude;
-        $property->status = $request->status;
         $property->location = $request->location;
-        $property->county_id = $request->county;
-        $property->sub_county_id = $request->sub_county;
-        $property->ward_id = $request->ward;
-        $property->town_id = $request->town;
         $property->save();
 
-        return redirect()->back()->with('success', 'Property Stored');
+        return redirect()->back()->with('success', 'Property Updated');
     }
 
     /**
@@ -139,5 +122,24 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         //
+    }
+
+    protected function mapPicture(Picture $picture)
+    {
+        $url = null;
+        $thumb = null;
+        if (file_exists(public_path($picture->url))) {
+            $url = asset($picture->url);
+            $thumb = asset($picture->thumb);
+        } else if (file_exists(storage_path('app/public/' . $picture->url))) {
+            $url = Storage::disk('public')->url($picture->url);
+            $thumb = Storage::disk('public')->url($picture->thumb);
+        }
+        return [
+            "id" => $picture->id,
+            "url" => $url,
+            "thumb" => $thumb,
+            "caption" => $picture->caption,
+        ];
     }
 }

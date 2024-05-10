@@ -10,6 +10,7 @@ import PropertyItem from './PropertyItem.vue';
 import Paginator from '../../../Components/Paginator.vue';
 import View from './View.vue';
 import Property from './Property.vue';
+import Pictures from './Pictures.vue';
 
 const props = defineProps<{
     properties: iProperties,
@@ -34,6 +35,7 @@ const handleSearch = debounce((value) => {
 
 const view = ref<boolean>(false)
 const edit = ref<boolean>(false)
+const pictures = ref<boolean>(false)
 const selectedProperty = ref<iProperty | null>(null)
 
 const viewProperty = (property: iProperty) => {
@@ -45,11 +47,15 @@ const editProperty = (property: iProperty | null) => {
     edit.value = true;
     selectedProperty.value = property;
 }
+const editPictures = (property: iProperty | null) => {
+    pictures.value = true;
+    selectedProperty.value = property;
+}
 
 const close = () => {
     view.value = false
     edit.value = false
-
+    pictures.value = false
     selectedProperty.value = null
 }
 </script>
@@ -57,6 +63,7 @@ const close = () => {
 <template>
     <View :show="view" :property="selectedProperty" @closed="close" />
     <Property :show="edit" :property="selectedProperty" @closed="close" />
+    <Pictures :show="pictures" :property="selectedProperty" @closed="close" />
     <AppLayout title="Properties">
         <template #header>
             Properties
@@ -83,6 +90,7 @@ const close = () => {
             </div>
             <div class="flex flex-col">
                 <PropertyItem @view="viewProperty(property)" @edit="editProperty(property)"
+                    @pictures="editPictures(property)"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     v-for="property in properties.data" :property="property" />
                 <Paginator :items="properties" />

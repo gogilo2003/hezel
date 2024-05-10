@@ -1,6 +1,9 @@
 import './bootstrap';
 import '../css/app.css';
-import '@fortawesome/fontawesome-free'
+import '@fortawesome/fontawesome-free';
+import 'primeicons/primeicons.css';
+
+
 // theme
 import 'primevue/resources/themes/lara-light-green/theme.css';
 import PrimeVue from 'primevue/config';

@@ -25,6 +25,9 @@ import ChevronCircleForward from './ChevronCircleForward.vue';
 import ArrowLeft from './ArrowLeft.vue';
 import ArrowRight from './ArrowRight.vue';
 import View from './View.vue';
+import Images from './Images.vue';
+import Delete from './Delete.vue';
+import Upload from './Upload.vue';
 
 const props = defineProps<{
     type: string
@@ -105,6 +108,15 @@ const icon = computed(() => {
     }
     if (props.type == 'view') {
         return View
+    }
+    if (props.type == 'images') {
+        return Images
+    }
+    if (props.type == 'delete') {
+        return Delete
+    }
+    if (props.type == 'upload') {
+        return Upload
     }
     return 'span';
 })

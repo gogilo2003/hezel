@@ -20,11 +20,6 @@ const emit = defineEmits(['closed'])
 
 const toast = useToast()
 
-const counties = computed((): iItem[] | any[] => usePage().props.counties)
-const sub_counties = computed((): iItem[] | any[] => usePage().props.sub_counties)
-const wards = computed((): iItem[] | any[] => usePage().props.wards)
-const towns = computed((): iItem[] | any[] => usePage().props.towns)
-
 const form = useForm<{
     id: number | null
     title: string | ""
@@ -62,12 +57,8 @@ watchEffect(() => {
     form.id = props.property?.id
     form.title = props.property?.title
     form.description = props.property?.description
-    form.price = parseInt(props.property?.price ?? 0)
+    form.price = props.property?.price ? parseInt(props.property?.price.toString()) : null
     form.location = props.property?.location
-    form.county = props.property?.county?.id
-    form.sub_county = props.property?.sub_county?.id
-    form.ward = props.property?.ward?.id
-    form.town = props.property?.town?.id
 
 })
 
@@ -94,7 +85,17 @@ const submit = () => {
                 toast.add({
                     severity: 'success',
                     summary: 'Success',
-                    detail: usePage().props.notification?.success
+                    detail: usePage().props.notification?.success,
+                    life: 4000
+                })
+                close()
+            },
+            onError: () => {
+                toast.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: usePage().props.notification?.danger ?? 'An Error occurred! Please check your fields and try again.',
+                    life: 4000
                 })
             }
         })
@@ -107,7 +108,17 @@ const submit = () => {
                 toast.add({
                     severity: 'success',
                     summary: 'Success',
-                    detail: usePage().props.notification?.success
+                    detail: usePage().props.notification?.success,
+                    life: 4000
+                })
+                close()
+            },
+            onError: () => {
+                toast.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: usePage().props.notification?.danger ?? 'An Error occurred! Please check your fields and try again.',
+                    life: 4000
                 })
             }
         })
