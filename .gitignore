@@ -4,3 +4,5 @@
 hezel/composer.lock
 hezel/package-lock.json
 public_html/hot
+public_html/build
+public_html/build/*
