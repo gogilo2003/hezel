@@ -1,1 +1,0 @@
-import{a}from"./Heading.vue_vue_type_script_setup_true_lang-c0b83737.js";import{i as o,o as t,c as r,w as s,r as n}from"./app-bf092d1c.js";const m=o({__name:"Heading1",setup(_){return(e,c)=>(t(),r(a,{level:"h1"},{default:s(()=>[n(e.$slots,"default")]),_:3}))}});export{m as _};

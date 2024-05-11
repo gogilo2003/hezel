@@ -1,1 +1,0 @@
-import{o as a,c as e,w as o,u as t,k as s,a as r}from"./app-7447c236.js";const c=r("img",{src:"/logo-horizontal.png",class:"h-10"},null,-1),u={__name:"AuthenticationCardLogo",setup(n){return(_,i)=>(a(),e(t(s),{href:"/"},{default:o(()=>[c]),_:1}))}};export{u as _};
