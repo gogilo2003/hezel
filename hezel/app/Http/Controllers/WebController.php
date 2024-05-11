@@ -54,7 +54,7 @@ class WebController extends Controller
             "name" => $item->name,
         ]);
 
-        $properties = PropertyResource::collection(Property::orderBy('created_at', )->with('features', 'pictures')
+        $properties = PropertyResource::collection(Property::orderBy('created_at', 'DESC')->with('features', 'pictures')
             ->paginate(6));
         if ($category) {
             $properties = PropertyResource::collection(
