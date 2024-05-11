@@ -106,7 +106,7 @@ class WebController extends Controller
 
     function postContact(ContactRequest $request)
     {
-        \Illuminate\Support\Facades\Mail::to('feedback@hezel.co.ke')->send(new ContactEmail($request->name, $request->email, $request->message));
+        \Illuminate\Support\Facades\Mail::to('feedback@hezelinvestments.co.ke')->send(new ContactEmail($request->name, $request->email, $request->message));
         return redirect()->back()->with('success', 'Message sent');
     }
 }

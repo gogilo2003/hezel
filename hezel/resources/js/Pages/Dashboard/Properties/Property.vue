@@ -77,7 +77,12 @@ const title = computed(() => {
 })
 const submit = () => {
     if (edit.value) {
-        form.patch(route('dashboard-properties-update', form.id), {
+        form.transform((data) => {
+            return {
+                ...data,
+                _method: 'patch'
+            }
+        }).post(route('dashboard-properties-update', form.id), {
             only: ['properties', 'errors', 'notification'],
             preserveScroll: true,
             preserveState: true,

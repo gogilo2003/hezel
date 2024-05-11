@@ -22,7 +22,8 @@ const links = ref([
 </script>
 <template>
     <div class="p-3">
-        <SidebarLink v-for="link in links" :active="route().current(link.name)" :href="route(link.name)" :icon="link.icon">
+        <SidebarLink v-for="link in links" :active="route().current(link.name)" :href="route(link.name)"
+            :icon="link.icon">
             {{ link.text }}
         </SidebarLink>
     </div>

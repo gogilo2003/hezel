@@ -39,13 +39,11 @@ const openMenu = computed(() => {
 })
 
 const onClickAway = () => {
-    console.log('clickAway');
-
     menuState.value = false
 }
 
 const publish = () => {
-    router.patch(route('dashboard-properties-publish', props.property.id), null, {
+    router.post(route('dashboard-properties-publish', props.property.id), { _method: 'patch' }, {
         only: ['properties', 'notification'],
         preserveScroll: true,
         preserveState: true,
@@ -70,7 +68,7 @@ const publish = () => {
 }
 
 const feature = () => {
-    router.patch(route('dashboard-properties-feature', props.property.id), null, {
+    router.post(route('dashboard-properties-feature', props.property.id), { _method: 'patch' }, {
         only: ['properties', 'notification'],
         preserveScroll: true,
         preserveState: true,
